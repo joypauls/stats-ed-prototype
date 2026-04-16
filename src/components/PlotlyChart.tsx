@@ -9,5 +9,11 @@ const Plot = dynamic(() => import("react-plotly.js"), {
 type PlotlyChartProps = React.ComponentProps<typeof Plot>;
 
 export default function PlotlyChart(props: PlotlyChartProps) {
-  return <Plot useResizeHandler style={{ width: "100%", height: "100%" }} {...props} />;
+  return (
+    <Plot
+      useResizeHandler
+      style={{ width: "100%", height: "100%" }}
+      {...props}
+    />
+  );
 }

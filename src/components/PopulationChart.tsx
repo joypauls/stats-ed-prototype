@@ -1,5 +1,6 @@
 "use client";
 
+import Card from "./Card";
 import PlotlyChart from "./PlotlyChart";
 
 type Props = {
@@ -8,22 +9,40 @@ type Props = {
 
 export default function PopulationChart({ values }: Props) {
   return (
-    <div className="h-72 rounded-2xl border p-2">
-      <PlotlyChart
-        data={[
-          {
-            type: "histogram",
-            x: values,
-            nbinsx: 40,
-          },
-        ]}
-        layout={{
-          title: { text: "Population" },
-          margin: { l: 40, r: 20, t: 40, b: 40 },
-          autosize: true,
-        }}
-        config={{ displayModeBar: false, responsive: true }}
-      />
-    </div>
+    <Card
+      title="Population"
+      subtitle="The source distribution you are sampling from"
+      className="h-[360px]"
+    >
+      <div className="h-[280px]">
+        <PlotlyChart
+          data={[
+            {
+              type: "histogram",
+              x: values,
+              nbinsx: 40,
+              hovertemplate: "x=%{x:.2f}<br>count=%{y}<extra></extra>",
+            },
+          ]}
+          layout={{
+            autosize: true,
+            margin: { l: 40, r: 16, t: 8, b: 40 },
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(248,250,252,0.9)",
+            bargap: 0.04,
+            font: { color: "#334155" },
+            xaxis: {
+              gridcolor: "#e2e8f0",
+              zeroline: false,
+            },
+            yaxis: {
+              gridcolor: "#e2e8f0",
+              zeroline: false,
+            },
+          }}
+          config={{ displayModeBar: false, responsive: true }}
+        />
+      </div>
+    </Card>
   );
 }
