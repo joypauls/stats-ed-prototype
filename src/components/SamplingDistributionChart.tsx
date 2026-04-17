@@ -31,21 +31,21 @@ export default function SamplingDistributionChart({
   return (
     <Card
       title="Sampling Distribution"
-      subtitle="Watch the distribution of sample means emerge"
+      subtitle="Sample means accumulate here over repeated draws"
       className="h-[360px]"
     >
       <div className="mb-3 grid grid-cols-3 gap-2">
-        <div className="rounded-2xl bg-slate-50 px-3 py-2">
-          <div className="text-[11px] uppercase tracking-wide text-slate-500">Draws</div>
-          <div className="text-sm font-semibold text-slate-900">{sampleMeans.length}</div>
+        <div className="rounded-2xl border border-slate-100 bg-slate-50/80 px-3 py-2">
+          <div className="text-[10px] font-medium uppercase tracking-wider text-slate-400">Draws</div>
+          <div className="mt-0.5 text-sm font-semibold tabular-nums text-slate-900">{sampleMeans.length}</div>
         </div>
-        <div className="rounded-2xl bg-slate-50 px-3 py-2">
-          <div className="text-[11px] uppercase tracking-wide text-slate-500">Mean</div>
-          <div className="text-sm font-semibold text-slate-900">{meanOfMeans.toFixed(2)}</div>
+        <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-3 py-2">
+          <div className="text-[10px] font-medium uppercase tracking-wider text-indigo-400">Mean</div>
+          <div className="mt-0.5 text-sm font-semibold tabular-nums text-indigo-900">{meanOfMeans.toFixed(2)}</div>
         </div>
-        <div className="rounded-2xl bg-slate-50 px-3 py-2">
-          <div className="text-[11px] uppercase tracking-wide text-slate-500">SD</div>
-          <div className="text-sm font-semibold text-slate-900">{sdOfMeans.toFixed(2)}</div>
+        <div className="rounded-2xl border border-violet-100 bg-violet-50/60 px-3 py-2">
+          <div className="text-[10px] font-medium uppercase tracking-wider text-violet-400">SD</div>
+          <div className="mt-0.5 text-sm font-semibold tabular-nums text-violet-900">{sdOfMeans.toFixed(2)}</div>
         </div>
       </div>
 

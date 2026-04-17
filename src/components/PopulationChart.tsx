@@ -11,7 +11,7 @@ export default function PopulationChart({ values }: Props) {
   return (
     <Card
       title="Population"
-      subtitle="The source distribution you are sampling from"
+      subtitle="Choose a shape, then start drawing samples"
       className="h-[360px]"
     >
       <div className="h-[280px]">
@@ -22,6 +22,10 @@ export default function PopulationChart({ values }: Props) {
               x: values,
               nbinsx: 40,
               hovertemplate: "x=%{x:.2f}<br>count=%{y}<extra></extra>",
+              marker: {
+                color: "#94a3b8",
+                opacity: 0.85,
+              },
             },
           ]}
           layout={{

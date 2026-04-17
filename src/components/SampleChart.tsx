@@ -18,7 +18,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
   return (
     <Card
       title="Current Sample"
-      subtitle="One sample shown on a single axis"
+      subtitle="Each dot is one observation from your sample"
       className="h-[360px]"
     >
       <div className="mb-3 flex items-center gap-2">
