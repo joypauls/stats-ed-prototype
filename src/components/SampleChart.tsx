@@ -21,7 +21,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
       subtitle="Each dot is one observation from your sample"
       className="h-[360px]"
     >
-      <div className="mb-3 flex items-center gap-2">
+      <div className="shrink-0 flex items-center gap-2">
         <div className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
           n = {sample.length}
         </div>
@@ -32,7 +32,12 @@ export default function SampleChart({ sample, sampleMean }: Props) {
         ) : null}
       </div>
 
-      <div className="h-[245px]">
+      <div className="min-h-0 flex-1">
+        {sample.length === 0 ? (
+          <div className="flex h-full items-center justify-center text-sm text-slate-300">
+            Draw a sample to begin
+          </div>
+        ) : (
         <PlotlyChart
           data={[
             {
@@ -50,7 +55,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
           ]}
           layout={{
             autosize: true,
-            margin: { l: 40, r: 16, t: 8, b: 40 },
+            margin: { l: 16, r: 16, t: 8, b: 40 },
             paper_bgcolor: "rgba(0,0,0,0)",
             plot_bgcolor: "rgba(248,250,252,0.9)",
             font: { color: "#334155" },
@@ -85,6 +90,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
           }}
           config={{ displayModeBar: false, responsive: true }}
         />
+        )}
       </div>
     </Card>
   );

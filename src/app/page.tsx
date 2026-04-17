@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PopulationChart from "@/components/PopulationChart";
 import SampleChart from "@/components/SampleChart";
 import SamplingDistributionChart from "@/components/SamplingDistributionChart";
@@ -20,8 +20,9 @@ export default function HomePage() {
   const [currentSample, setCurrentSample] = useState<number[]>([]);
   const [sampleMeans, setSampleMeans] = useState<number[]>([]);
   const [isRunning, setIsRunning] = useState(false);
-  const runRef = useRef(isRunning);
-  runRef.current = isRunning;
+  const [resetKey, setResetKey] = useState(0);
+
+  const hasData = currentSample.length > 0 || sampleMeans.length > 0;
 
   const populationMean = populationAnalyticalMean[populationKind];
   const currentSampleMean = currentSample.length ? mean(currentSample) : null;
@@ -32,6 +33,7 @@ export default function HomePage() {
     setCurrentSample([]);
     setSampleMeans([]);
     setIsRunning(false);
+    setResetKey((k) => k + 1);
   }
 
   function handleSampleSizeChange(n: number) {
@@ -39,6 +41,7 @@ export default function HomePage() {
     setCurrentSample([]);
     setSampleMeans([]);
     setIsRunning(false);
+    setResetKey((k) => k + 1);
   }
 
   const drawOne = useCallback(() => {
@@ -76,15 +79,8 @@ export default function HomePage() {
     setIsRunning(false);
     setCurrentSample([]);
     setSampleMeans([]);
+    setResetKey((k) => k + 1);
   }
-
-  const prompt = sampleMeans.length === 0
-    ? "Draw a few samples. What do you notice?"
-    : sampleMeans.length < 10
-    ? "Keep going — draw more samples."
-    : sampleMeans.length < 50
-    ? "Try changing the sample size. What happens?"
-    : "Notice how the shape becomes more regular."
 
   return (
     <main className="min-h-screen px-6 py-8 text-slate-900">
@@ -120,10 +116,9 @@ export default function HomePage() {
                 value={populationKind}
                 onChange={(e) => handlePopulationChange(e.target.value as PopulationKind)}
               >
-                <option value="normal">Normal</option>
-                <option value="uniform">Uniform</option>
-                <option value="bimodal">Bimodal</option>
-                <option value="right_skewed">Right-Skewed</option>
+                {(Object.entries(populationLabels) as [PopulationKind, string][]).map(([value, label]) => (
+                  <option key={value} value={value}>{label}</option>
+                ))}
               </select>
             </div>
 
@@ -175,7 +170,8 @@ export default function HomePage() {
                 {isRunning ? "Pause" : "Run"}
               </button>
               <button
-                className="rounded-xl border border-slate-200 bg-transparent px-3 py-2 text-sm font-medium text-slate-400 transition hover:border-slate-300 hover:text-slate-600 active:scale-[0.97]"
+                disabled={!hasData}
+                className="rounded-xl border border-slate-200 bg-transparent px-3 py-2 text-sm font-medium transition active:scale-[0.97] disabled:cursor-not-allowed disabled:text-slate-300 disabled:border-slate-100 text-slate-400 hover:border-slate-300 hover:text-slate-600"
                 onClick={handleReset}
               >
                 Reset
@@ -184,6 +180,9 @@ export default function HomePage() {
 
             {/* Status pills */}
             <div className="ml-auto flex items-center gap-1.5">
+              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] text-slate-500">
+                {populationLabels[populationKind]}
+              </span>
               <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] text-slate-500">
                 {sampleMeans.length} means
               </span>
@@ -195,12 +194,11 @@ export default function HomePage() {
           </div>
         </section>
 
-        <p className="text-sm text-slate-500 transition-all">{prompt}</p>
-
         <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <PopulationChart kind={populationKind} />
-          <SampleChart sample={currentSample} sampleMean={currentSampleMean} />
+          <SampleChart key={resetKey} sample={currentSample} sampleMean={currentSampleMean} />
           <SamplingDistributionChart
+            key={resetKey + 1}
             sampleMeans={sampleMeans}
             populationMean={populationMean}
           />

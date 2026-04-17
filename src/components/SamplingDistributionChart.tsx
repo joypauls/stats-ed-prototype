@@ -34,7 +34,7 @@ export default function SamplingDistributionChart({
       subtitle="Sample means accumulate here over repeated draws"
       className="h-[360px]"
     >
-      <div className="mb-3 grid grid-cols-3 gap-2">
+      <div className="shrink-0 grid grid-cols-3 gap-2">
         <div className="rounded-2xl border border-slate-100 bg-slate-50/80 px-3 py-2">
           <div className="text-[10px] font-medium uppercase tracking-wider text-slate-400">Draws</div>
           <div className="mt-0.5 text-sm font-semibold tabular-nums text-slate-900">{sampleMeans.length}</div>
@@ -43,19 +43,24 @@ export default function SamplingDistributionChart({
           <div className="text-[10px] font-medium uppercase tracking-wider text-indigo-400">Mean</div>
           <div className="mt-0.5 text-sm font-semibold tabular-nums text-indigo-900">{meanOfMeans.toFixed(2)}</div>
         </div>
-        <div className="rounded-2xl border border-violet-100 bg-violet-50/60 px-3 py-2">
-          <div className="text-[10px] font-medium uppercase tracking-wider text-violet-400">SD</div>
-          <div className="mt-0.5 text-sm font-semibold tabular-nums text-violet-900">{sdOfMeans.toFixed(2)}</div>
+        <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-3 py-2">
+          <div className="text-[10px] font-medium uppercase tracking-wider text-indigo-400">SD</div>
+          <div className="mt-0.5 text-sm font-semibold tabular-nums text-indigo-900">{sdOfMeans.toFixed(2)}</div>
         </div>
       </div>
 
-      <div className="h-[220px]">
+      <div className="min-h-0 flex-1">
+        {sampleMeans.length === 0 ? (
+          <div className="flex h-full items-center justify-center text-sm text-slate-300">
+            Draw a sample to begin
+          </div>
+        ) : (
         <PlotlyChart
           data={[
             {
               type: "histogram",
               x: sampleMeans,
-              nbinsx: 30,
+              ...({ nbinsx: 30 } as object),
               hovertemplate: "mean=%{x:.2f}<br>count=%{y}<extra></extra>",
               marker: {
                 color: "#818cf8",
@@ -64,7 +69,7 @@ export default function SamplingDistributionChart({
           ]}
           layout={{
             autosize: true,
-            margin: { l: 40, r: 16, t: 8, b: 40 },
+            margin: { l: 16, r: 16, t: 8, b: 40 },
             paper_bgcolor: "rgba(0,0,0,0)",
             plot_bgcolor: "rgba(248,250,252,0.9)",
             bargap: 0.04,
@@ -91,10 +96,12 @@ export default function SamplingDistributionChart({
             yaxis: {
               gridcolor: "#e2e8f0",
               zeroline: false,
+              showticklabels: false,
             },
           }}
           config={{ displayModeBar: false, responsive: true }}
         />
+        )}
       </div>
     </Card>
   );

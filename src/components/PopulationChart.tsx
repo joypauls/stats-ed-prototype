@@ -18,7 +18,7 @@ export default function PopulationChart({ kind }: Props) {
       subtitle="Choose a shape, then start drawing samples"
       className="h-[360px]"
     >
-      <div className="h-[280px]">
+      <div className="min-h-0 flex-1">
         <PlotlyChart
           data={[
             {
@@ -34,7 +34,7 @@ export default function PopulationChart({ kind }: Props) {
           ]}
           layout={{
             autosize: true,
-            margin: { l: 40, r: 16, t: 8, b: 40 },
+            margin: { l: 16, r: 16, t: 8, b: 40 },
             paper_bgcolor: "rgba(0,0,0,0)",
             plot_bgcolor: "rgba(248,250,252,0.9)",
             font: { color: "#334155" },
@@ -46,7 +46,7 @@ export default function PopulationChart({ kind }: Props) {
             yaxis: {
               gridcolor: "#e2e8f0",
               zeroline: false,
-              tickformat: ".2f",
+              showticklabels: false,
             },
           }}
           config={{ displayModeBar: false, responsive: true }}
