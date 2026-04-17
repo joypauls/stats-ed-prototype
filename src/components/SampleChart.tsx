@@ -9,7 +9,7 @@ type Props = {
 };
 
 function jitter(n: number) {
-  return Array.from({ length: n }, () => (Math.random() - 0.5) * 0.04);
+  return Array.from({ length: n }, () => (Math.random() - 0.5) * 0.01);
 }
 
 export default function SampleChart({ sample, sampleMean }: Props) {
@@ -61,7 +61,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
             },
             yaxis: {
               visible: false,
-              range: [-0.04, 0.04],
+              range: [-0.2, 0.2],
               zeroline: false,
             },
             ...(sampleMean === null

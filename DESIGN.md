@@ -180,17 +180,6 @@ The application includes minimal guidance text.
 
 This is NOT a full lesson system.
 
-Instead:
-
-- short prompts guide user exploration
-- text reacts to state where appropriate
-
-Examples:
-
-- "Draw a few samples. What do you notice?"
-- "Increase the sample size and run again."
-- "Larger samples produce more stable averages."
-
 ---
 
 ## Non-Goals (Important)

@@ -1,17 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import PopulationChart from "@/components/PopulationChart";
 import SampleChart from "@/components/SampleChart";
 import SamplingDistributionChart from "@/components/SamplingDistributionChart";
-import { generatePopulationPreview, PopulationKind } from "@/lib/distributions";
+import { populationAnalyticalMean, PopulationKind } from "@/lib/distributions";
 import { drawSample, mean } from "@/lib/sampling";
 
 const populationLabels: Record<PopulationKind, string> = {
   normal: "Normal",
   uniform: "Uniform",
   bimodal: "Bimodal",
-  right_skewed: "Right skewed",
+  right_skewed: "Right-Skewed",
 };
 
 export default function HomePage() {
@@ -23,12 +23,7 @@ export default function HomePage() {
   const runRef = useRef(isRunning);
   runRef.current = isRunning;
 
-  const populationPreview = useMemo(
-    () => generatePopulationPreview(populationKind, 10000),
-    [populationKind]
-  );
-
-  const populationMean = useMemo(() => mean(populationPreview), [populationPreview]);
+  const populationMean = populationAnalyticalMean[populationKind];
   const currentSampleMean = currentSample.length ? mean(currentSample) : null;
 
   // Reset accumulated state when the population or sample size changes
@@ -128,7 +123,7 @@ export default function HomePage() {
                 <option value="normal">Normal</option>
                 <option value="uniform">Uniform</option>
                 <option value="bimodal">Bimodal</option>
-                <option value="right_skewed">Right skewed</option>
+                <option value="right_skewed">Right-Skewed</option>
               </select>
             </div>
 
@@ -203,7 +198,7 @@ export default function HomePage() {
         <p className="text-sm text-slate-500 transition-all">{prompt}</p>
 
         <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-          <PopulationChart values={populationPreview} />
+          <PopulationChart kind={populationKind} />
           <SampleChart sample={currentSample} sampleMean={currentSampleMean} />
           <SamplingDistributionChart
             sampleMeans={sampleMeans}

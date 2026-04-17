@@ -1,13 +1,17 @@
 "use client";
 
+import { useMemo } from "react";
 import Card from "./Card";
 import PlotlyChart from "./PlotlyChart";
+import { populationPDF, PopulationKind } from "@/lib/distributions";
 
 type Props = {
-  values: number[];
+  kind: PopulationKind;
 };
 
-export default function PopulationChart({ values }: Props) {
+export default function PopulationChart({ kind }: Props) {
+  const { x, y } = useMemo(() => populationPDF(kind), [kind]);
+
   return (
     <Card
       title="Population"
@@ -18,14 +22,14 @@ export default function PopulationChart({ values }: Props) {
         <PlotlyChart
           data={[
             {
-              type: "histogram",
-              x: values,
-              nbinsx: 40,
-              hovertemplate: "x=%{x:.2f}<br>count=%{y}<extra></extra>",
-              marker: {
-                color: "#94a3b8",
-                opacity: 0.85,
-              },
+              type: "scatter",
+              mode: "lines",
+              x,
+              y,
+              fill: "tozeroy",
+              line: { color: "#6366f1", width: 2 },
+              fillcolor: "rgba(99,102,241,0.12)",
+              hovertemplate: "x=%{x:.2f}<extra></extra>",
             },
           ]}
           layout={{
@@ -33,8 +37,8 @@ export default function PopulationChart({ values }: Props) {
             margin: { l: 40, r: 16, t: 8, b: 40 },
             paper_bgcolor: "rgba(0,0,0,0)",
             plot_bgcolor: "rgba(248,250,252,0.9)",
-            bargap: 0.04,
             font: { color: "#334155" },
+            showlegend: false,
             xaxis: {
               gridcolor: "#e2e8f0",
               zeroline: false,
@@ -42,6 +46,7 @@ export default function PopulationChart({ values }: Props) {
             yaxis: {
               gridcolor: "#e2e8f0",
               zeroline: false,
+              tickformat: ".2f",
             },
           }}
           config={{ displayModeBar: false, responsive: true }}
