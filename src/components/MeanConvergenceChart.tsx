@@ -169,7 +169,7 @@ export default function MeanConvergenceChart({ sampleMeans, populationMean }: Pr
             ]}
             layout={{
               autosize: true,
-              margin: { l: 32, r: 12, t: 4, b: 28 },
+              margin: { l: 32, r: 12, t: 4, b: 40 },
               paper_bgcolor: "rgba(0,0,0,0)",
               plot_bgcolor: "rgba(248,250,252,0.9)",
               font: { color: "#334155", family: "inherit" },
