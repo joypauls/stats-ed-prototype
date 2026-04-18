@@ -188,7 +188,7 @@ export default function HomePage() {
                 {sampleMeans.length} means
               </span>
               <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-[11px] text-amber-600" suppressHydrationWarning>
-                μ ≈ {populationMean.toFixed(2)}
+                true mean ≈ {populationMean.toFixed(2)}
               </span>
             </div>
 

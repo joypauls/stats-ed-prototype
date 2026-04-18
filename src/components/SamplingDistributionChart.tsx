@@ -31,7 +31,7 @@ export default function SamplingDistributionChart({
   return (
     <Card
       title="Sampling Distribution"
-      subtitle="Sample means accumulate here over repeated draws"
+      subtitle="Histogram of sample means across all draws"
       className="h-[360px]"
     >
       <div className="shrink-0 grid grid-cols-3 gap-2">
@@ -61,7 +61,7 @@ export default function SamplingDistributionChart({
               type: "histogram",
               x: sampleMeans,
               ...({ xbins: { size: 0.1 } } as object),
-              hovertemplate: "mean=%{x:.2f}<br>count=%{y}<extra></extra>",
+              hovertemplate: "mean = %{x:.2f}  count = %{y}<extra></extra>",
               marker: {
                 color: "#818cf8",
               },

@@ -27,7 +27,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
         </div>
         {sampleMean !== null ? (
           <div className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
-            sample mean = {sampleMean.toFixed(2)}
+            mean = {sampleMean.toFixed(2)}
           </div>
         ) : null}
       </div>
@@ -50,7 +50,7 @@ export default function SampleChart({ sample, sampleMean }: Props) {
                 color: "#6366f1",
                 opacity: 0.8,
               },
-              hovertemplate: "x=%{x:.2f}<extra></extra>",
+              hovertemplate: "value = %{x:.2f}<extra></extra>",
             },
           ]}
           layout={{

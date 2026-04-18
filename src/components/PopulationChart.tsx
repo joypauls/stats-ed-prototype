@@ -29,7 +29,7 @@ export default function PopulationChart({ kind }: Props) {
               fill: "tozeroy",
               line: { color: "#6366f1", width: 2 },
               fillcolor: "rgba(99,102,241,0.12)",
-              hovertemplate: "x=%{x:.2f}<extra></extra>",
+              hovertemplate: "value = %{x:.2f}<extra></extra>",
             },
           ]}
           layout={{

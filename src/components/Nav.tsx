@@ -12,7 +12,7 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 flex h-14 items-center px-6 border-b border-white/60 bg-white/70 backdrop-blur-md shadow-[0_1px_0_rgba(15,23,42,0.06)]">
+    <nav className="flex h-14 items-center px-6 border-b border-white/60 bg-white/70 backdrop-blur-md shadow-[0_1px_0_rgba(15,23,42,0.06)]">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         {/* Wordmark */}
         <Link
