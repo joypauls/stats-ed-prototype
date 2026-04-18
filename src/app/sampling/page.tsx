@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import PopulationChart from "@/components/PopulationChart";
 import SampleChart from "@/components/SampleChart";
 import SamplingDistributionChart from "@/components/SamplingDistributionChart";
+import MeanConvergenceChart from "@/components/MeanConvergenceChart";
 import { populationAnalyticalMean, PopulationKind } from "@/lib/distributions";
 import { drawSample, mean } from "@/lib/sampling";
 
@@ -203,6 +204,11 @@ export default function HomePage() {
             populationMean={populationMean}
           />
         </section>
+
+        <MeanConvergenceChart
+          sampleMeans={sampleMeans}
+          populationMean={populationMean}
+        />
       </div>
     </main>
   );

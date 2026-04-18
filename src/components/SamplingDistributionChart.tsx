@@ -60,7 +60,7 @@ export default function SamplingDistributionChart({
             {
               type: "histogram",
               x: sampleMeans,
-              ...({ nbinsx: 30 } as object),
+              ...({ xbins: { size: 0.1 } } as object),
               hovertemplate: "mean=%{x:.2f}<br>count=%{y}<extra></extra>",
               marker: {
                 color: "#818cf8",
